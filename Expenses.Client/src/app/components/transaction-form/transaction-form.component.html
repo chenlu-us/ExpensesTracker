@@ -1,0 +1,52 @@
+<div class="container py-4">
+    <div class="d-flex justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-lightly py-3">
+                    <h3 class="card-title mb-0 fw-semibold">
+                        {{editMode ? 'Edit' : 'Add'}} Transaction
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <form [formGroup]="transactionForm"(ngSubmit)="OnSubmit()">
+                        <!-- Form fields will be rendered here -->
+                         <div class="mb-4">
+                            <label for="type" class="form-label fw-medium">Type</label>
+                            <select id="type" class="form-select form-select-lg" formControlName="type" (change)="updateCategories()">
+                                <option value="Expense">Expense</option>
+                                <option value="Income">Income</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="category" class="form-label fw-medium">Category</label>
+                            <select id="category" class="form-select form-select-lg" formControlName="category">
+                                <option *ngFor="let category of availableCategories" [value]="category">{{ category }}</option>
+                            </select>
+                        </div>
+
+                          <div class="mb-4">
+                            <label for="amount" class="form-label fw-medium">Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" id="amount" class="form-control form-control-lg" formControlName="amount" placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="createdAt" class="form-label fw-medium">Date</label>
+                             <input type="date" id="createdAt" class="form-control form-control-lg" formControlName="createdAt">
+                        </div>
+
+                        <div class="f-flex gap-3 justify-content-end mt-4">
+                            <button type="button" class="btn tn-light btn-lg px-4" (click)="cancel()">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-lg px-4" [disabled]="transactionForm.invalid">
+                                {{editMode ? 'Update' : 'Save'}} Transaction
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
